@@ -1,7 +1,6 @@
 import '@utils/common.scss';
 import '@assets/iconfont/iconfont.css';
 import './index.scss';
-import '@components/commonComponent.scss';
 import $ from 'jquery';
 import bg from '@images/webpack.svg';
 import data from '@assets/data.json';

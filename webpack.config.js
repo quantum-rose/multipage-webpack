@@ -135,6 +135,10 @@ const config = {
     },
     plugins,
     optimization: {
+        /**
+         * 设定在什么情况下将某个模块单独打包，默认配置即可
+         * https://webpack.docschina.org/plugins/split-chunks-plugin/
+         */
         splitChunks: {
             chunks: 'all',
         },
@@ -146,10 +150,10 @@ const config = {
             '@images': resolve(__dirname, './src/images'),
             '@assets': resolve(__dirname, './src/assets'),
             '@utils': resolve(__dirname, './src/utils'),
-        },
+        }, // 路径别名
     },
     devServer: {
-        contentBase: resolve(__dirname, 'public'),
+        contentBase: resolve(__dirname, 'public'), // 服务器根目录
         publicPath: 'http://localhost:8080/',
         compress: true,
         port: 8080,
@@ -172,7 +176,10 @@ module.exports = (env, argv) => {
              * 建议的做法是统一使用 JSON.stringify() 函数进行转换
              */
             new webpack.DefinePlugin({
-                // webpack 会自动将当前环境变量挂载到 process.env.NODE_ENV，无需手动配置
+                /**
+                 * webpack 会自动将当前环境变量挂载到 process.env.NODE_ENV，无需手动配置
+                 * https://webpack.docschina.org/concepts/mode/
+                 */
                 'process.env.BASE_URL': JSON.stringify('/'), // 将全局变量挂载到 process.env 下的好处是不用处理 eslint 报错的问题
                 'process.env.IS_DEV': JSON.stringify(true),
                 NODE_ENV: JSON.stringify(argv.mode), // 在 js 中使用此变量会导致 eslint 报错 'NODE_ENV is not defined'

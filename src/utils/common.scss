@@ -1,3 +1,43 @@
-body {
+body,
+h1,
+h2 {
     margin: 0;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+
+    header,
+    footer {
+        padding: 0 21px;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding-top: 20px;
+    }
+
+    footer {
+        flex: 1;
+        justify-self: end;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding-bottom: 20px;
+    }
+
+    .copyright {
+        color: darkslateblue;
+        font-size: 12px;
+        text-align: center;
+    }
 }

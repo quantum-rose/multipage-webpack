@@ -3,8 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <%= require('@components/meta.ejs')() %>
         <title>Index</title>
     </head>
     <body>
@@ -13,15 +12,37 @@
                 Index
                 <span class="iconfont icon-message"></span>
             </h1>
+            <a href="./about.html"><h2>About ></h2></a>
         </header>
         <main>
             <ol>
                 <li>
                     <dl>
                         <dt>webpack 全局变量</dt>
-                        <dd>NODE_ENV = <%= NODE_ENV %></dd>
-                        <dd>BASE_URL = <%= BASE_URL %></dd>
-                        <dd>IS_DEV = <%= IS_DEV %></dd>
+                        <dd>
+                            <table>
+                                <tr>
+                                    <th>类型</th>
+                                    <th>名称</th>
+                                    <th>值</th>
+                                </tr>
+                                <tr>
+                                    <td>String</td>
+                                    <td>NODE_ENV</td>
+                                    <td><%= NODE_ENV %></td>
+                                </tr>
+                                <tr>
+                                    <td>String</td>
+                                    <td>BASE_URL</td>
+                                    <td><%= BASE_URL %></td>
+                                </tr>
+                                <tr>
+                                    <td>Boolean</td>
+                                    <td>IS_DEV</td>
+                                    <td><%= IS_DEV %></td>
+                                </tr>
+                            </table>
+                        </dd>
                     </dl>
                 </li>
                 <li>
@@ -73,8 +94,14 @@
             </ol>
         </main>
         <footer>
-            <a href="./about.html"><h2>About</h2></a>
-            <%= require('@components/commonComponent.ejs')() %>
+            <%= require('@components/copyright.ejs')() %>
         </footer>
+
+        <% if(IS_DEV){ %>
+        <script src="https://cdn.staticfile.org/vConsole/3.3.4/vconsole.min.js"></script>
+        <script>
+            new VConsole();
+        </script>
+        <% } %>
     </body>
 </html>

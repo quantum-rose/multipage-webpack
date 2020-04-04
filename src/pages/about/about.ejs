@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <%= require('@components/meta.ejs')() %>
         <title>About</title>
     </head>
     <body>
@@ -11,10 +10,17 @@
                 About
                 <span class="iconfont icon-message"></span>
             </h1>
+            <a href="./index.html"><h2>Index ></h2></a>
         </header>
         <footer>
-            <a href="./index.html"><h2>Index</h2></a>
-            <%= require('@components/commonComponent.ejs')() %>
+            <%= require('@components/copyright.ejs')() %>
         </footer>
+
+        <% if(IS_DEV){ %>
+        <script src="https://cdn.staticfile.org/vConsole/3.3.4/vconsole.min.js"></script>
+        <script>
+            new VConsole();
+        </script>
+        <% } %>
     </body>
 </html>
