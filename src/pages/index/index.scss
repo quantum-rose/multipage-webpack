@@ -1,0 +1,50 @@
+// @import '@components/commonComponent.scss'; /* 不建议用scss语法导入其他scss文件，被引用的文件发生改变时webpack并不能正确地更新 */
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-color: pink;
+
+    dt {
+        margin-bottom: 10px;
+    }
+
+    #title {
+        color: skyblue;
+
+        .icon-message {
+            font-size: 48px;
+        }
+    }
+
+    .package-img,
+    .web-img {
+        height: 100px;
+    }
+
+    .scss-background-image,
+    .js-background-image {
+        display: inline-block;
+        width: 400px;
+        height: 100px;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .scss-background-image {
+        background-image: url(~@images/webpack.svg);
+    }
+
+    h3 > small {
+        font-size: 12px;
+    }
+
+    header,
+    footer {
+        padding: 0 21px;
+    }
+}

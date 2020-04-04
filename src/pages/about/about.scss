@@ -1,0 +1,22 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-color: skyblue;
+
+    #title {
+        color: pink;
+
+        .icon-message {
+            font-size: 48px;
+        }
+    }
+
+    header,
+    footer {
+        padding: 0 21px;
+    }
+}

@@ -1,0 +1,83 @@
+{
+    "name": "multipage-webpack",
+    "version": "1.0.0",
+    "description": "MultiPage Application Template",
+    "main": "index.js",
+    "scripts": {
+        "dev": "webpack-dev-server --mode=development",
+        "build": "webpack --mode=production"
+    },
+    "keywords": [
+        "webpack",
+        "multipage",
+        "ejs"
+    ],
+    "author": "Cui Haojie",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.9.0",
+        "@babel/preset-env": "^7.9.0",
+        "babel-loader": "^8.1.0",
+        "clean-webpack-plugin": "^3.0.0",
+        "copy-webpack-plugin": "^5.1.1",
+        "core-js": "^3.6.4",
+        "css-loader": "^3.4.2",
+        "ejs-loader": "^0.3.6",
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb-base": "^14.1.0",
+        "eslint-import-resolver-webpack": "^0.12.1",
+        "eslint-loader": "^3.0.3",
+        "eslint-plugin-import": "^2.20.2",
+        "file-loader": "^6.0.0",
+        "html-webpack-plugin": "^4.0.3",
+        "mini-css-extract-plugin": "^0.9.0",
+        "node-sass": "^4.13.1",
+        "optimize-css-assets-webpack-plugin": "^5.0.3",
+        "postcss-loader": "^3.0.0",
+        "postcss-preset-env": "^6.7.0",
+        "sass-loader": "^8.0.2",
+        "url-loader": "^4.0.0",
+        "webpack": "^4.42.1",
+        "webpack-cli": "^3.3.11",
+        "webpack-dev-server": "^3.10.3"
+    },
+    "dependencies": {
+        "jquery": "^3.4.1"
+    },
+    "browserslist": {
+        "development": [
+            "last 2 chrome version",
+            "last 2 firefox version",
+            "last 2 safari version"
+        ],
+        "production": [
+            ">1%",
+            "not dead",
+            "not op_mini all"
+        ]
+    },
+    "eslintConfig": {
+        "extends": "airbnb-base",
+        "env": {
+            "browser": true
+        },
+        "rules": {
+            "no-console": "off",
+            "indent": [
+                "error",
+                4
+            ],
+            "arrow-parens": [
+                "error",
+                "as-needed"
+            ]
+        },
+        "settings": {
+            "import/resolver": {
+                "webpack": {
+                    "config": "./webpack.config.js"
+                }
+            }
+        }
+    }
+}

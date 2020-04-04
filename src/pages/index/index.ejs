@@ -1,0 +1,80 @@
+<% const params = { param:'我是 param'} %>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Index</title>
+    </head>
+    <body>
+        <header>
+            <h1 id="title">
+                Index
+                <span class="iconfont icon-message"></span>
+            </h1>
+        </header>
+        <main>
+            <ol>
+                <li>
+                    <dl>
+                        <dt>webpack 全局变量</dt>
+                        <dd>NODE_ENV = <%= NODE_ENV %></dd>
+                        <dd>BASE_URL = <%= BASE_URL %></dd>
+                        <dd>IS_DEV = <%= IS_DEV %></dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            利用 ejs 模板引擎，导入其他 html 片段，实现组件化开发
+                        </dt>
+                        <dd>
+                            <%= require('./components/component.ejs')(params) %>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>要被打包的图片需要用 ejs 模板标签语法导入，不支持 import 语法</dt>
+                        <dd>
+                            <img
+                                class="package-img"
+                                src="<%= require('@images/webpack.svg') %>"
+                                alt="chrome"
+                                title="chrome"
+                            />
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            scss 和 js 导入图片的方式详见 index.scss 和 index.js
+                        </dt>
+                        <dd>
+                            <div class="scss-background-image"></div>
+                            <div class="js-background-image"></div>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            如果不希望图片被打包，可以使用相对路径引用 public 目录下的资源，public 目录是
+                            webpack-dev-server 服务器运行的根目录，可用于模拟网络环境，一般情况下，生产环境中应使用 cdn
+                            资源的根路径替换，BASE_URL 已经封装好了这一逻辑
+                        </dt>
+                        <dd>
+                            <img class="web-img" src="<%= BASE_URL + 'images/chrome.png' %> " alt="" />
+                        </dd>
+                    </dl>
+                </li>
+            </ol>
+        </main>
+        <footer>
+            <a href="./about.html"><h2>About</h2></a>
+            <%= require('@components/commonComponent.ejs')() %>
+        </footer>
+    </body>
+</html>
