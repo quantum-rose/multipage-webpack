@@ -1,4 +1,7 @@
-<% const params = { param:'我是 param'} %>
+<%
+    const params = { param:'我是 param'};
+    const colors = ['#4390ee', '#ca4040', '#ff8604'];
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,13 +9,16 @@
         <%= require('@components/meta.ejs')() %>
         <title>Index</title>
     </head>
+
     <body>
         <header>
             <h1 id="title">
                 Index
                 <span class="iconfont icon-message"></span>
             </h1>
-            <a href="./about.html"><h2>About ></h2></a>
+            <a href="./about.html">
+                <h2>About ></h2>
+            </a>
         </header>
         <main>
             <ol>
@@ -90,6 +96,29 @@
                             <img class="web-img" src="<%= BASE_URL + 'images/chrome.png' %> " alt="" />
                         </dd>
                     </dl>
+                </li>
+                <li>
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <% for(let i = 0; i < colors.length; i++){ %>
+                            <div
+                                class="swiper-slide"
+                                style="background-color: <%= colors[i] %>;"
+                            >
+                                Slide <%= i + 1 %>
+                            </div>
+                            <% } %>
+                        </div>
+                        <!-- 如果需要分页器 -->
+                        <div class="swiper-pagination"></div>
+
+                        <!-- 如果需要导航按钮 -->
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+
+                        <!-- 如果需要滚动条 -->
+                        <div class="swiper-scrollbar"></div>
+                    </div>
                 </li>
             </ol>
         </main>

@@ -1,4 +1,4 @@
-// @import '@components/commonComponent.scss'; /* 不建议用 scss 语法导入其他 scss 文件，被引用的文件改变时 webpack 并不能正确更新 */
+// @import '@utils/common.scss'; /* 不建议用 scss 语法导入其他 scss 文件，被引用的文件改变时 webpack 并不能正确更新 */
 
 body {
     background-color: pink;
@@ -45,5 +45,31 @@ body {
 
     h3 > small {
         font-size: 12px;
+    }
+
+    .swiper-container {
+        width: 400px;
+        height: 200px;
+        margin-left: 0;
+        background-color: #fff;
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+
+        [class^='swiper-button-'] {
+            width: 14px;
+            height: 22px;
+            margin-top: -11px;
+
+            &::after {
+                font-size: 22px;
+            }
+        }
     }
 }

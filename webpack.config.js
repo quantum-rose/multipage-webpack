@@ -88,7 +88,7 @@ const config = {
                 test: /\.(jpg|png|gif|bmp|svg)$/,
                 loader: 'url-loader',
                 options: {
-                    limit: 0,
+                    limit: 1024,
                     esModule: false,
                     name: '[name].[contenthash:8].[ext]',
                     outputPath: 'imgs',
