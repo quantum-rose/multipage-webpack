@@ -1,4 +1,3 @@
-import '@utils/common.scss';
 import '@assets/iconfont/iconfont.css';
 import 'swiper/css/swiper.css';
 import './index.scss';

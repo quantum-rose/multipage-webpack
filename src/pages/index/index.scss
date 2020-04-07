@@ -1,4 +1,4 @@
-// @import '@utils/common.scss'; /* 不建议用 scss 语法导入其他 scss 文件，被引用的文件改变时 webpack 并不能正确更新 */
+@import '@utils/common.scss';
 
 body {
     background-color: pink;
@@ -62,10 +62,15 @@ body {
             color: white;
         }
 
+        .swiper-pagination-bullet-active {
+            background-color: #fff;
+        }
+
         [class^='swiper-button-'] {
             width: 14px;
             height: 22px;
             margin-top: -11px;
+            color: white;
 
             &::after {
                 font-size: 22px;
