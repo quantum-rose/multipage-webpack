@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 
-const CDN_URL = 'http://127.0.0.1:5500/dist/'; // ! cdn资源地址，如果是 public 目录下的资源，由于没有经过打包，不会自动拼接地址
+const CDN_URL = './'; // ! cdn资源地址，如果是 public 目录下的资源，由于没有经过打包，不会自动拼接地址
 
 /**
  * 入口
@@ -19,7 +19,6 @@ const plugins = [
     new MiniCssExtractPlugin({
         filename: 'css/[name].[contenthash:8].css',
     }),
-    new OptimizeCssAssetsWebpackPlugin(),
 ];
 
 /**
@@ -28,8 +27,8 @@ const plugins = [
 readdirSync('./src/pages/').forEach((pageName) => {
     const pagePath = resolve(__dirname, './src/pages/', pageName);
     const fileNames = readdirSync(pagePath);
-    const pageEntry = fileNames.find((item) => /\.js$/.test(item));
-    const pageTemplate = fileNames.find((item) => /\.ejs$/.test(item));
+    const pageEntry = fileNames.find((item) => /\.js$/i.test(item));
+    const pageTemplate = fileNames.find((item) => /\.ejs$/i.test(item));
     entry[pageName] = resolve(pagePath, pageEntry);
     plugins.push(
         new HtmlWebpackPlugin({
@@ -55,10 +54,16 @@ const commonStyleLoader = [
             publicPath: '../',
         },
     },
-    'css-loader',
+    {
+        loader: 'css-loader',
+        options: {
+            sourceMap: true,
+        },
+    },
     {
         loader: 'postcss-loader',
         options: {
+            sourceMap: true,
             ident: 'postcss',
             plugins: () => [require('postcss-preset-env')],
         },
@@ -77,15 +82,23 @@ const config = {
     module: {
         rules: [
             {
-                test: /\.css$/,
+                test: /\.css$/i,
                 use: commonStyleLoader,
             },
             {
-                test: /\.scss$/,
-                use: [...commonStyleLoader, 'sass-loader'],
+                test: /\.scss$/i,
+                use: [
+                    ...commonStyleLoader,
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true,
+                        },
+                    },
+                ],
             },
             {
-                test: /\.(jpg|png|gif|bmp|svg)$/,
+                test: /\.(jpe?g|png|gif|bmp|svg)$/i,
                 loader: 'url-loader',
                 options: {
                     limit: 1024,
@@ -95,11 +108,11 @@ const config = {
                 },
             },
             {
-                test: /\.ejs$/,
+                test: /\.ejs$/i,
                 loader: 'ejs-loader',
             },
             {
-                test: /\.js$/,
+                test: /\.js$/i,
                 exclude: /node_modules/,
                 use: [
                     {
@@ -124,12 +137,25 @@ const config = {
                 ],
             },
             {
-                exclude: /\.(css|scss|js|json|html|ejs|jpg|png|gif|bmp|svg)$/,
+                exclude: /\.(css|scss|js|json|html|ejs|jpe?g|png|gif|bmp|svg)$/i,
                 loader: 'file-loader',
                 options: {
                     name: '[name].[contenthash:8].[ext]',
                     outputPath: 'assets',
                 },
+            },
+            {
+                test: require.resolve('jquery'),
+                use: [
+                    {
+                        loader: 'expose-loader',
+                        options: 'jQuery',
+                    },
+                    {
+                        loader: 'expose-loader',
+                        options: '$',
+                    },
+                ],
             },
         ],
     },
@@ -154,9 +180,13 @@ const config = {
     },
     devServer: {
         contentBase: resolve(__dirname, 'public'), // 服务器根目录
-        publicPath: 'http://localhost:8080/',
+        publicPath: 'http://127.0.0.1:8080/',
         compress: true,
+        host: '0.0.0.0', // 使开发服务器可以在局域网内访问
         port: 8080,
+        overlay: true,
+        quiet: true,
+        useLocalIp: true, // 配合 open: true 使用，不然会打开 0.0.0.0
         open: true,
     },
 };
@@ -187,7 +217,7 @@ module.exports = (env, argv) => {
                 IS_DEV: JSON.stringify(true),
             })
         );
-        config.devtool = 'eval-source-map';
+        config.devtool = 'inline-source-map';
     }
 
     /**
@@ -196,6 +226,7 @@ module.exports = (env, argv) => {
     if (argv.mode === 'production') {
         config.output.publicPath = CDN_URL;
         config.plugins.push(
+            new OptimizeCssAssetsWebpackPlugin(), // 压缩 css，会导致 sourceMap 失效，故只放在生产环境中
             new (require('copy-webpack-plugin'))([
                 // 将 public 目录下的文件复制到打包后的目录中
                 {

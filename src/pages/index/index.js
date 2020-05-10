@@ -1,7 +1,6 @@
 import '@assets/iconfont/iconfont.css';
 import 'swiper/css/swiper.css';
 import './index.scss';
-import $ from 'jquery';
 import Swiper from 'swiper';
 import bg from '@images/webpack.svg';
 import data from '@assets/data.json';

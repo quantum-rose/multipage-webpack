@@ -1,3 +1,5 @@
+@import '@utils/common.scss';
+
 body {
     background-color: skyblue;
 
@@ -7,5 +9,14 @@ body {
         .icon-message {
             font-size: 48px;
         }
+    }
+
+    .container {
+        background-color: #fff;
+    }
+
+    [class^='col-'] {
+        background-color: #eee;
+        text-align: center;
     }
 }

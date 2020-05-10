@@ -1,13 +1,15 @@
-<%
-    const params = { param:'我是 param'};
-    const colors = ['#4390ee', '#ca4040', '#ff8604'];
-%>
+<% const params = { param:'我是 param'}; const colors = ['#4390ee', '#ca4040', '#ff8604']; %>
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <%= require('@components/meta.ejs')() %>
         <title>Index</title>
+        <% if(IS_DEV) { %>
+        <link rel="stylesheet" href="<%= BASE_URL + 'libs/bootstrap/css/bootstrap.css' %>" />
+        <% } else { %>
+        <link rel="stylesheet" href="<%= BASE_URL + 'libs/bootstrap/css/bootstrap.min.css' %>" />
+        <% } %>
     </head>
 
     <body>
@@ -20,6 +22,7 @@
                 <h2>About ></h2>
             </a>
         </header>
+
         <main>
             <ol>
                 <li>
@@ -65,12 +68,7 @@
                     <dl>
                         <dt>要被打包的图片需要用 ejs 模板标签语法导入，不支持 import 语法</dt>
                         <dd>
-                            <img
-                                class="package-img"
-                                src="<%= require('@images/webpack.svg') %>"
-                                alt="chrome"
-                                title="chrome"
-                            />
+                            <img class="package-img" src="<%= require('@images/webpack.svg') %>" alt="chrome" title="chrome" />
                         </dd>
                     </dl>
                 </li>
@@ -88,9 +86,7 @@
                 <li>
                     <dl>
                         <dt>
-                            如果不希望图片被打包，可以使用相对路径引用 public 目录下的资源，public 目录是
-                            webpack-dev-server 服务器运行的根目录，可用于模拟网络环境，一般情况下，生产环境中应使用 cdn
-                            资源的根路径替换，BASE_URL 已经封装好了这一逻辑
+                            如果不希望图片被打包，可以使用相对路径引用 public 目录下的资源，public 目录是 webpack-dev-server 服务器运行的根目录，可用于模拟网络环境，一般情况下，生产环境中应使用 cdn 资源的根路径替换，BASE_URL 已经封装好了这一逻辑
                         </dt>
                         <dd>
                             <img class="web-img" src="<%= BASE_URL + 'images/chrome.png' %> " alt="" />
@@ -101,10 +97,7 @@
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
                             <% for(let i = 0; i < colors.length; i++){ %>
-                            <div
-                                class="swiper-slide"
-                                style="background-color: <%= colors[i] %>;"
-                            >
+                            <div class="swiper-slide" style="background-color: <%= colors[i] %>;">
                                 Slide <%= i + 1 %>
                             </div>
                             <% } %>
@@ -122,15 +115,21 @@
                 </li>
             </ol>
         </main>
+
         <footer>
             <%= require('@components/copyright.ejs')() %>
         </footer>
 
-        <% if(IS_DEV){ %>
+        <% if(IS_DEV) { %>
+        <script src="<%= BASE_URL + 'libs/jquery/jquery-3.5.1.js' %>"></script>
+        <script src="<%= BASE_URL + 'libs/bootstrap/js/bootstrap.bundle.js' %>"></script>
         <script src="https://cdn.staticfile.org/vConsole/3.3.4/vconsole.min.js"></script>
         <script>
             new VConsole();
         </script>
+        <% } else { %>
+        <script src="<%= BASE_URL + 'libs/jquery/jquery-3.5.1.min.js' %>"></script>
+        <script src="<%= BASE_URL + 'libs/bootstrap/js/bootstrap.bundle.min.js' %>"></script>
         <% } %>
     </body>
 </html>
