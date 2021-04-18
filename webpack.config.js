@@ -110,6 +110,9 @@ const config = {
             {
                 test: /\.ejs$/i,
                 loader: 'ejs-loader',
+                options: {
+                    esModule: false,
+                },
             },
             {
                 test: /\.js$/i,
@@ -180,10 +183,9 @@ const config = {
     },
     devServer: {
         contentBase: resolve(__dirname, 'public'), // 服务器根目录
-        publicPath: 'http://127.0.0.1:8080/',
+        publicPath: '/', // 此配置默认与 output.publicPath 相同，需要强制改为 '/'，即服务器根目录
         compress: true,
         host: '0.0.0.0', // 使开发服务器可以在局域网内访问
-        port: 8080,
         overlay: true,
         quiet: true,
         useLocalIp: true, // 配合 open: true 使用，不然会打开 0.0.0.0
@@ -196,10 +198,10 @@ module.exports = (env, argv) => {
      * 开发环境
      */
     if (argv.mode === 'development') {
-        config.output.publicPath = '/';
+        config.output.publicPath = '../'; // 相对于 HTML 文件的路径，由于 HTML 文件在 en，cn 目录下，需要向外寻找一层
         config.plugins.push(
             /**
-             * DefinePlugin 的工作原理是字符串替换，类似 C 中的 #define
+             * DefinePlugin 的工作原理是字符串替换
              * 变量的值必须为字符串，代码中的这些变量名经过打包后会替换为该字符串
              * 所以，如果期望替换后的结果为字符串值，变量的值必须用引号包裹
              * 比如 '"字符串"'，或者 '\'字符串\''
