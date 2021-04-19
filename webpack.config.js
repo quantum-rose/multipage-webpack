@@ -183,7 +183,7 @@ const config = {
     },
     devServer: {
         contentBase: resolve(__dirname, 'public'), // 服务器根目录
-        publicPath: '/', // 此配置默认与 output.publicPath 相同，需要强制改为 '/'，即服务器根目录
+        publicPath: '/', // 此配置默认与 output.publicPath 相同，如果 output.publicPath 不为 '/'，需要明确指定为 '/'
         compress: true,
         host: '0.0.0.0', // 使开发服务器可以在局域网内访问
         overlay: true,
@@ -198,7 +198,7 @@ module.exports = (env, argv) => {
      * 开发环境
      */
     if (argv.mode === 'development') {
-        config.output.publicPath = '../'; // 相对于 HTML 文件的路径，由于 HTML 文件在 en，cn 目录下，需要向外寻找一层
+        config.output.publicPath = '/'; // 相对于 HTML 文件的路径
         config.plugins.push(
             /**
              * DefinePlugin 的工作原理是字符串替换
