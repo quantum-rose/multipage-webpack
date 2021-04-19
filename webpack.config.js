@@ -133,10 +133,6 @@ const config = {
                             cacheDirectory: true,
                         },
                     },
-                    {
-                        loader: 'eslint-loader',
-                        options: { fix: true },
-                    },
                 ],
             },
             {
